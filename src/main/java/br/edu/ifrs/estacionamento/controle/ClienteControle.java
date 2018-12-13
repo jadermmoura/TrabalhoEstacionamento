@@ -87,7 +87,8 @@ public class ClienteControle {
         Cliente cliente = this.pesquisarPeloId(id);
         clienteDAO.save(cliente);
         return veiculoSalvo;
+        
     }
        
-    
+      
 }

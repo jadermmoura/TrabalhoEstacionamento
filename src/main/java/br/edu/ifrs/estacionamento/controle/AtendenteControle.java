@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,10 +50,8 @@ public class AtendenteControle {
     @RequestMapping(path = "/{login}", method = RequestMethod.POST)
     public Atendente buscar(@RequestBody Atendente atendente) {
         atendente.setId(0);
-        
-        
-        
-        
+          
+               
         if (atendente.getNome() == null && atendente.equals("")
                 || atendente.getEmail() == null && atendente.equals("")
                 || atendente.getSenha() == null && atendente.equals("")) {
