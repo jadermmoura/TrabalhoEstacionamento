@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jader
  */
 @RestController
-@RequestMapping(path = "/api/estadia/")
+@RequestMapping(path = "/api/estadia")
 public class EstadiaControle {
 
     @Autowired
@@ -34,13 +34,13 @@ public class EstadiaControle {
     @Autowired
     EstadiaDAO estadiaDAO;
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public Iterable<Estadia> listar() {
         return estadiaDAO.findAll();
 
     }
 
-    @RequestMapping(path = "", method = RequestMethod.POST)
+    @RequestMapping(path = "/", method = RequestMethod.POST)
     public Estadia inserir(@RequestBody Estadia estadia) {
         estadia.setId(0);
         LocalDate hoje = LocalDate.now();

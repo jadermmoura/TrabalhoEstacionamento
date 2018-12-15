@@ -7,7 +7,6 @@ package br.edu.ifrs.estacionamento.controle;
 
 import br.edu.ifrs.estacionamento.DAO.VeiculoDAO;
 import br.edu.ifrs.estacionamento.modelo.Veiculo;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,30 +22,37 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Jader
  */
 @RestController
-@RequestMapping(path = "/api/veiculo/")
+@RequestMapping(path = "/api/veiculo")
 public class VeiculoControle {
     
     @Autowired
     VeiculoDAO veiculoDAO;
     
-    @RequestMapping(path = "",method = RequestMethod.GET)
+    @RequestMapping(path = "/",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Veiculo> listar (){
         return veiculoDAO.findAll();
         
     }
-    @RequestMapping(path = "placa/{placa}",method = RequestMethod.GET)
+    @RequestMapping(path = "/verifica/{placa}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public boolean verificaPlaca (@PathVariable ("placa") String placa){
         Optional<Veiculo> veiculo = veiculoDAO.findAllByPlaca(placa);
         return veiculo.isPresent();
         
     }
+     @RequestMapping(path = "placa/{placa}",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<Veiculo> buscarCarroPlaca(@PathVariable("placa")String placa){
+        return veiculoDAO.findByPlaca(placa);
+    }
      
-    @RequestMapping(path = "",method = RequestMethod.POST)
-    public Veiculo inserir (@RequestBody Veiculo veiculo){
+     @RequestMapping(path = "/", method = RequestMethod.POST)
+    public Veiculo inserir(@RequestBody Veiculo veiculo) {
         veiculo.setId(0);
+        if (veiculo.getPlaca()== null && veiculo.getPlaca().equals("")
+                || veiculo.getPlaca()== null && veiculo.getPlaca().equals("")) {
+        }
         return veiculoDAO.save(veiculo);
     }
-    
 }

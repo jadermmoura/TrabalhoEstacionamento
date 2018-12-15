@@ -25,18 +25,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Jader
  */
 @RestController
-@RequestMapping(path = "/api/atendente/")
+@RequestMapping(path = "/api/atendente")
 public class AtendenteControle {
 
     @Autowired
     AtendenteDAO atendenteDAO;
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public Iterable<Atendente> listar() {
         return atendenteDAO.findAll();
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Atendente pesquisarPeloId(@PathVariable int id) {
         Optional<Atendente> atendenteId = atendenteDAO.findAllById(id);
@@ -47,22 +47,7 @@ public class AtendenteControle {
         }
     }
     
-    @RequestMapping(path = "/{login}", method = RequestMethod.POST)
-    public Atendente buscar(@RequestBody Atendente atendente) {
-        atendente.setId(0);
-          
-               
-        if (atendente.getNome() == null && atendente.equals("")
-                || atendente.getEmail() == null && atendente.equals("")
-                || atendente.getSenha() == null && atendente.equals("")) {
-        }
-        return atendenteDAO.save(atendente);
-    }
-
-    
-
-    
-    @RequestMapping(path = "", method = RequestMethod.POST)
+    @RequestMapping(path = "/", method = RequestMethod.POST)
     public Atendente inserir(@RequestBody Atendente atendente) {
         atendente.setId(0);
         if (atendente.getNome() == null && atendente.equals("")
@@ -72,7 +57,7 @@ public class AtendenteControle {
         return atendenteDAO.save(atendente);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void apagar(@PathVariable int id) {
         if (atendenteDAO.existsById(id)) {
@@ -82,7 +67,7 @@ public class AtendenteControle {
         }
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Atendente editar(@PathVariable int id, @RequestBody Atendente atendenteNovo) {
         atendenteNovo.setId(id);
@@ -90,6 +75,7 @@ public class AtendenteControle {
         Atendente atendenteAntigo = this.pesquisarPeloId(id);
         atendenteAntigo.setNome(atendenteNovo.getNome());
         atendenteAntigo.setEmail(atendenteNovo.getEmail());
+        atendenteAntigo.setSenha(atendenteNovo.getSenha());
         return atendenteDAO.save(atendenteAntigo);
 
     }

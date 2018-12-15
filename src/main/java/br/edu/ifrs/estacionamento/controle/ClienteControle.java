@@ -5,7 +5,6 @@
  */
 package br.edu.ifrs.estacionamento.controle;
 
-import br.edu.ifrs.estacionamento.DAO.AtendenteDAO;
 import br.edu.ifrs.estacionamento.DAO.ClienteDAO;
 import br.edu.ifrs.estacionamento.DAO.VeiculoDAO;
 import br.edu.ifrs.estacionamento.erro.NaoEncontrado;
@@ -35,7 +34,7 @@ public class ClienteControle {
     @Autowired
     VeiculoDAO veiculoDAO; 
 
-     @RequestMapping(path = "{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Cliente pesquisarPeloId(@PathVariable int id) {
         Optional<Cliente> clienteId = clienteDAO.findAllById(id);
