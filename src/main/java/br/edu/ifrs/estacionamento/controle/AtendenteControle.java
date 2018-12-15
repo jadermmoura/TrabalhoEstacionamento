@@ -6,13 +6,12 @@
 package br.edu.ifrs.estacionamento.controle;
 
 import br.edu.ifrs.estacionamento.DAO.AtendenteDAO;
+import br.edu.ifrs.estacionamento.erro.CamposObrigatorios;
 import br.edu.ifrs.estacionamento.erro.NaoEncontrado;
 import br.edu.ifrs.estacionamento.modelo.Atendente;
 import java.util.Optional;
-import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,13 +45,14 @@ public class AtendenteControle {
             throw new NaoEncontrado("Id não encontrado");
         }
     }
-    
+
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public Atendente inserir(@RequestBody Atendente atendente) {
         atendente.setId(0);
-        if (atendente.getNome() == null && atendente.equals("")
-                || atendente.getEmail() == null && atendente.equals("")
-                || atendente.getSenha() == null && atendente.equals("")) {
+        if (atendente.getNome() == null && atendente.getNome().equals("")
+                || atendente.getEmail() == null && atendente.getEmail().equals("")
+                || atendente.getSenha() == null && atendente.getSenha().equals("")) {
+            throw new CamposObrigatorios("Não pode ficar campos em branco");
         }
         return atendenteDAO.save(atendente);
     }
