@@ -6,6 +6,7 @@
 package br.edu.ifrs.estacionamento.controle;
 
 import br.edu.ifrs.estacionamento.DAO.VeiculoDAO;
+import br.edu.ifrs.estacionamento.erro.NaoEncontrado;
 import br.edu.ifrs.estacionamento.modelo.Veiculo;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,17 @@ public class VeiculoControle {
         return veiculoDAO.findAll();
         
     }
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void apagar(@PathVariable int id) {
+        if (veiculoDAO.existsById(id)) {
+            veiculoDAO.deleteById(id);
+        } else {
+            throw new NaoEncontrado("Não encontrado");
+        }
+    }
+    
+    
     @RequestMapping(path = "/verifica/{placa}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public boolean verificaPlaca (@PathVariable ("placa") String placa){

@@ -20,22 +20,15 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Estadia {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate diaEntrada;
     
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime horaEntrada;
-    
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate diaSaida;
     
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime horaSaida;
-
     @ManyToOne
     private Atendente atendente;
 
@@ -70,28 +63,12 @@ public class Estadia {
         this.diaEntrada = diaEntrada;
     }
 
-    public LocalTime getHoraEntrada() {
-        return horaEntrada;
-    }
-
-    public void setHoraEntrada(LocalTime horaEntrada) {
-        this.horaEntrada = horaEntrada;
-    }
-
     public LocalDate getDiaSaida() {
         return diaSaida;
     }
 
     public void setDiaSaida(LocalDate diaSaida) {
         this.diaSaida = diaSaida;
-    }
-
-    public LocalTime getHoraSaida() {
-        return horaSaida;
-    }
-
-    public void setHoraSaida(LocalTime horaSaida) {
-        this.horaSaida = horaSaida;
     }
 
     public Atendente getAtendente() {

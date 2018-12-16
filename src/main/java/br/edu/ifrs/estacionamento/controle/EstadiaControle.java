@@ -46,9 +46,7 @@ public class EstadiaControle {
         LocalDate hoje = LocalDate.now();
         LocalTime hora = LocalTime.now();
         estadia.setDiaEntrada(hoje);
-        estadia.setHoraEntrada(hora);
         return estadiaDAO.save(estadia);
-
     }
 
 }
