@@ -49,12 +49,13 @@ public class AtendenteControle {
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public Atendente inserir(@RequestBody Atendente atendente) {
         atendente.setId(0);
-        if (atendente.getNome() == null && atendente.getNome().equals("")
-                || atendente.getEmail() == null && atendente.getEmail().equals("")
-                || atendente.getSenha() == null && atendente.getSenha().equals("")) {
+        if (atendente.getNome() == null || atendente.getNome().equals("")
+                || atendente.getEmail() == null || atendente.getEmail().equals("")
+                || atendente.getSenha() == null || atendente.getSenha().equals("")) {
             throw new CamposObrigatorios("Não pode ficar campos em branco");
+        } else {
+            return atendenteDAO.save(atendente);
         }
-        return atendenteDAO.save(atendente);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
@@ -67,7 +68,7 @@ public class AtendenteControle {
         }
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/editar/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Atendente editar(@PathVariable int id, @RequestBody Atendente atendenteNovo) {
         atendenteNovo.setId(id);

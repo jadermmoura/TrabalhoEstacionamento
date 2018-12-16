@@ -7,7 +7,6 @@ package br.edu.ifrs.estacionamento.modelo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +28,10 @@ public class Estadia {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate diaSaida;
     
+    private double total;
+    
+    private final double valorDiaria = 10;
+
     @ManyToOne
     private Atendente atendente;
 
@@ -86,5 +89,17 @@ public class Estadia {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
     
+    
+    public double getValorDiaria() {
+        return valorDiaria;
+    }
 }

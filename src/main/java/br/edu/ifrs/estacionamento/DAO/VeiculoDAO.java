@@ -25,5 +25,7 @@ public interface VeiculoDAO extends CrudRepository<Veiculo, Integer>{
     public Optional<Veiculo> findAllByPlaca(String placa);
 
     public Iterable<Veiculo> findByPlaca(String placa);
+
+    public Optional<Veiculo> findAllById(int id);
     
 }

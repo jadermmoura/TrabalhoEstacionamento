@@ -86,4 +86,14 @@ public class ClienteControle {
         
     }
     
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void apagar(@PathVariable int id) {
+        if (clienteDAO.existsById(id)) {
+            clienteDAO.deleteById(id);
+        } else {
+            throw new NaoEncontrado("Não encontrado");
+        }
+    }
+    
 }

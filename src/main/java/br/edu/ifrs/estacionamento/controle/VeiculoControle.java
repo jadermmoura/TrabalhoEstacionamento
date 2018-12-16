@@ -59,11 +59,21 @@ public class VeiculoControle {
         return veiculoDAO.findByPlaca(placa);
     }
      
+     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Veiculo pesquisarPeloId(@PathVariable int id) {
+        Optional<Veiculo> clienteId = veiculoDAO.findAllById(id);
+        if (clienteId.isPresent()) {
+            return clienteId.get();
+        } else {
+            throw new NaoEncontrado("Id não encontrado");
+        }
+    }
      @RequestMapping(path = "/", method = RequestMethod.POST)
     public Veiculo inserir(@RequestBody Veiculo veiculo) {
         veiculo.setId(0);
-        if (veiculo.getPlaca()== null && veiculo.getPlaca().equals("")
-                || veiculo.getPlaca()== null && veiculo.getPlaca().equals("")) {
+        if (veiculo.getPlaca()== null || veiculo.getPlaca().equals("")
+                || veiculo.getPlaca()== null || veiculo.getPlaca().equals("")) {
         }
         return veiculoDAO.save(veiculo);
     }
