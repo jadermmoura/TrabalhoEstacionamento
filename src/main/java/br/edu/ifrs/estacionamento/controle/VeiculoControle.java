@@ -53,10 +53,10 @@ public class VeiculoControle {
         return veiculo.isPresent();
         
     }
-     @RequestMapping(path = "placa/{placa}",method = RequestMethod.GET)
+    @RequestMapping(path = "/placa/{placa}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Veiculo> buscarCarroPlaca(@PathVariable("placa")String placa){
-        return veiculoDAO.findByPlaca(placa);
+              return veiculoDAO.findByPlaca(placa);
     }
      
      @RequestMapping(path = "/{id}", method = RequestMethod.GET)
@@ -73,8 +73,20 @@ public class VeiculoControle {
     public Veiculo inserir(@RequestBody Veiculo veiculo) {
         veiculo.setId(0);
         if (veiculo.getPlaca()== null || veiculo.getPlaca().equals("")
-                || veiculo.getPlaca()== null || veiculo.getPlaca().equals("")) {
+        || veiculo.getModelo()== null || veiculo.getModelo().equals("")) {
         }
         return veiculoDAO.save(veiculo);
+    }
+    
+      @RequestMapping(path = "/editar/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public Veiculo editar(@PathVariable int id, @RequestBody Veiculo veiculoNovo) {
+        veiculoNovo.setId(id);
+        Veiculo veiculoAntigo = this.pesquisarPeloId(id);
+        veiculoAntigo.setPlaca(veiculoNovo.getPlaca());
+        veiculoAntigo.setModelo(veiculoNovo.getModelo());
+        
+        return veiculoDAO.save(veiculoAntigo);
+        
     }
 }

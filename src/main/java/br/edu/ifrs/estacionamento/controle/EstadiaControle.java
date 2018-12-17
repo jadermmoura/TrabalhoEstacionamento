@@ -14,9 +14,6 @@ import br.edu.ifrs.estacionamento.modelo.Cliente;
 import br.edu.ifrs.estacionamento.modelo.Estadia;
 import br.edu.ifrs.estacionamento.modelo.Veiculo;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +46,19 @@ public class EstadiaControle {
         return estadiaDAO.findAll();
 
     }
+    
+    @RequestMapping(path = "/placa/{placa}", method = RequestMethod.GET)
+    public Estadia retornaEstadia(@PathVariable String placa) {
+        
+        Iterable<Estadia> todasEstadias = estadiaDAO.findAll();
+        Estadia retorno = new Estadia();
+        for (Estadia estadia : todasEstadias) {
+            if (estadia.getVeiculo().getPlaca().equals(placa)) {
+                retorno = estadia;
+            }
+        }
+        return retorno;
+    }
 
     @RequestMapping(path = "/salvar/atendente/{idAtendente}/cliente/{idCliente}/veiculo/{idVeiculo}/", method = RequestMethod.POST)
     public Estadia inserir(@RequestBody Estadia estadia, @PathVariable int idAtendente, @PathVariable int idCliente, @PathVariable int idVeiculo) {
@@ -64,5 +74,8 @@ public class EstadiaControle {
         return estadiaDAO.save(estadia);
 
     }
+    
+ 
+    
 
 }

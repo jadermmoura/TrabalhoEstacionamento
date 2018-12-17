@@ -62,7 +62,7 @@ public class ClienteControle {
         return clienteDAO.findByNome(nome);
     }
     
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/editar/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Cliente editar(@PathVariable int id, @RequestBody Cliente clienteNovo) {
         clienteNovo.setId(id);
